@@ -1,0 +1,486 @@
+{
+ "$schema": "http://json-schema.org/draft-04/schema#",
+ "type": "object",
+ "description": "The Intrusion Detection Message Exchange Format v2 (revision 0.1)",
+ "definitions": {
+  "uuidType": {
+   "type": "string",
+   "pattern": "^[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+  },
+  "causeType": {
+   "enum": [
+     "Normal", "Error", "Malicious", "Malfunction", "Natural"
+   ]
+  },
+  "severityType": {
+   "enum": [
+    "unknown", "low", "medium", "high", "critical", "ok", "down"
+   ]
+  },
+  "agentCategoryType": {
+   "enum": [
+    "LFS", "PLS", "VAD", "HAR", "FRV", "VNIR", "SWIR", "LWIR", "MWIR", "ADS", "ODC",
+    "AV", "NIDS", "HIDS", "DOS", "WAF", "FW", "WIDS", "NAC", "HPT", "LOG", "SIEM",
+    "NMS", "LM"
+   ]
+  },
+  "agentDataType": {
+   "enum": [
+    "Light", "noise", "touch", "Images", "Vibration", "Lidar", "Thermic", "Sismic", "Temperature", "Rain", "Water", "Humidity", "Particles", "Contact", "magnetic field", "accoustics", "Fog",
+    "External (web site)", "Reporting (manual)", "Connection", "Datagram", "Content", "Data", "File", "Flow", "Log", "Protocol", "Host", "Network", "Correlation", "external", "reporting", "relay", "Auth"
+   ]
+  },
+  "agentMethodType": {
+   "enum": [
+    "biometric", "signature", "monitor", "policy", "statistical", "deep learning",
+    "blackhole", "heuristic", "integrity", "honeypot", "tarpit", "recon", "X learning"
+   ]
+  },
+  "geoLocationType": {
+   "type": "string"
+  },
+  "unLocationType": {
+   "type": "string"
+  },
+  "portType": {
+   "type": "integer",
+   "minimum": 0,
+   "maximum": 65535
+  },
+  "vectorCategoryType": {
+   "enum": [
+    "face", "running man", "human", "man", "woman", "chilren", "animal", "object", "blast", "fire", "wind", "snow", "rain",
+    "chemical", "smoke", "vapors", "drug", "device", "drone", "car", "truck", "vehicle", "dog", "bird"
+   ]
+  },
+  "vectorSizeType": {
+   "enum": [
+    "small", "medium", "large", "huge"
+   ]
+  },
+  "contentTypeType": {
+   "type": "string"
+  }
+ },
+ "properties": {
+  "Version": {
+   "enum": ["0.1"]
+  },
+  "ID": {
+   "$ref": "#/definitions/uuidType"
+  },
+  "Entity": {
+   "type": "string"
+  },
+  "CreateTime": {
+   "type": "string",
+   "format": "date-time"
+  },
+  "DetectTime": {
+   "type": "string",
+   "format": "date-time"
+  },
+  "EventTime": {
+   "type": "string",
+   "format": "date-time"
+  },
+  "CeaseTime": {
+   "type": "string",
+   "format": "date-time"
+  },
+  "DeleteTime": {
+   "type": "string",
+   "format": "date-time"
+  },
+  "AltNames": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "CorrelID": {
+   "type": "array",
+   "items": {
+    "$ref": "#/definitions/uuidType"
+   }
+  },
+  "AggrCount": {
+   "type": "integer"
+  },
+  "AggrID": {
+   "type": "array",
+   "items": {
+    "$ref": "#/definitions/uuidType"
+   }
+  },
+  "PredID": {
+   "type": "array",
+   "items": {
+    "$ref": "#/definitions/uuidType"
+   }
+  },
+  "Cause": {
+   "$ref": "#/definitions/causeType"
+  },
+  "CategoryRef": {
+   "type": "string"
+  },
+  "Category": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "Severity": {
+   "$ref": "#/definitions/severityType"
+  },
+  "Confidence": {
+   "type": "number",
+   "minimum": 0,
+   "maximum": 1
+  },
+  "Description": {
+   "type": "string"
+  },
+  "Ref": {
+   "type": "array",
+   "items": {
+    "type": "string",
+    "format": "uri"
+   }
+  },
+  "Note": {
+   "type": "string"
+  },
+  "AttachHand": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "Agent": {
+   "type": "object",
+   "properties": {
+    "ID": {
+     "$ref": "#/definitions/uuidType"
+    },
+    "Name": {
+     "type": "string"
+    },
+    "Model": {
+     "type": "string"
+    },
+    "Category": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/agentCategoryType"
+     }
+    },
+    "Data": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/agentDataType"
+     }
+    },
+    "Method": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/agentMethodType"
+     }
+    },
+    "GeoLocation": {
+     "$ref": "#/definitions/geoLocationType"
+    },
+    "UnLocation": {
+     "$ref": "#/definitions/unLocationType"
+    },
+    "Location": {
+     "type": "string"
+    },
+    "Hostname": {
+     "type": "string"
+    },
+    "IP4": {
+     "type": "string",
+     "format": "ipv4"
+    },
+    "IP6": {
+     "type": "string",
+     "format": "ipv6"
+    },
+    "Azimuth": {
+     "type": "number"
+    },
+    "Elevation": {
+     "type": "number"
+    },
+    "Range": {
+     "type": "number"
+    },
+    "HFOV": {
+     "type": "number"
+    },
+    "VFOV": {
+     "type": "number"
+    },
+    "CyberDetectZone": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "ID",
+    "IP4",
+    "IP6"
+   ]
+  },
+  "Source": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "GeoLocation": {
+      "$ref": "#/definitions/geoLocationType"
+     },
+     "UnLocation": {
+      "$ref": "#/definitions/unLocationType"
+     },
+     "Location": {
+      "type": "string"
+     },
+     "Note": {
+      "type": "string"
+     },
+     "Hostname": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "User": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "Email": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "email"
+      }
+     },
+     "IP4": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "ipv4"
+      }
+     },
+     "IP6": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "ipv6"
+      }
+     },
+     "Proto": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "Port": {
+      "type": "array",
+      "items": {
+       "$ref": "#/definitions/portType"
+      }
+     },
+     "AttachHand": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "Target": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "GeoLocation": {
+      "$ref": "#/definitions/geoLocationType"
+     },
+     "UnLocation": {
+      "$ref": "#/definitions/unLocationType"
+     },
+     "Location": {
+      "type": "string"
+     },
+     "Note": {
+      "type": "string"
+     },
+     "Hostname": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "Service": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "User": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "Email": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "email"
+      }
+     },
+     "IP4": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "ipv4"
+      }
+     },
+     "IP6": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "ipv6"
+      }
+     },
+     "Port": {
+      "type": "array",
+      "items": {
+       "$ref": "#/definitions/portType"
+      }
+     },
+     "AttachHand": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    "required": [
+     "Port",
+     "IP6",
+     "IP4"
+    ]
+   }
+  },
+  "Vector": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "Category": {
+      "$ref": "#/definitions/vectorCategoryType"
+     },
+     "Name": {
+      "type": "string"
+     },
+     "Size": {
+      "$ref": "#/definitions/vectorySizeType"
+     },
+     "UnLocation": {
+      "$ref": "#/definitions/unLocationType"
+     },
+     "GeoLocation": {
+      "$ref": "#/definitions/geoLocationType"
+     },
+     "GeoRadius": {
+      "type": "number"
+     },
+     "Location": {
+      "type": "string"
+     },
+     "Note": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "Category"
+    ]
+   }
+  },
+  "Attach": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "Handle": {
+      "type": "string"
+     },
+     "FileName": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "Hash": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "Size": {
+      "type": "integer"
+     },
+     "Ref": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "uri"
+      }
+     },
+     "ExternalURI": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "format": "uri"
+      }
+     },
+     "Note": {
+      "type": "string"
+     },
+     "ContentType": {
+      "$ref": "#/definitions/contentTypeType"
+     },
+     "ContentEncoding": {
+      "type": "string",
+      "default": "json"
+     },
+     "Content": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "Handle",
+     "Content"
+    ]
+   }
+  }
+ },
+ "required": [
+  "Version",
+  "ID",
+  "CreateTime",
+  "CategoryRef",
+  "Category"
+ ]
+}
