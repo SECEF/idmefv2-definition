@@ -84,7 +84,7 @@
    ]
   },
   "attachHashType": {
-   "description": "A cryptographic hash acting as a checksum for some content, using the format \"function:hex-value\" (e.g. \"md5:dc89f0b4ff9bd3b061dd66bb66c991b1\")."
+   "description": "A cryptographic hash acting as a checksum for some content, using the format \"function:hex-value\" (e.g. \"md5:dc89f0b4ff9bd3b061dd66bb66c991b1\").",
    "type": "string",
    "pattern": "^[a-zA-Z0-9-]+:([a-fA-F0-9]{2})+$"
   },
@@ -497,7 +497,7 @@
      },
      "Size": {
       "description": "A rough estimation of the vector's size.",
-      "$ref": "#/definitions/vectorySizeType"
+      "$ref": "#/definitions/vectorSizeType"
      },
      "UnLocation": {
       "description": "The vector's UN/LOCODE location.",
