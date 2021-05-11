@@ -620,7 +620,7 @@
 							"$ref": "#/definitions/portType"
 						}
 					},
-					"Attachement": {
+					"Attachment": {
 						"description": "Identifiers for attachments related to this source. Each identifier listed here MUST match the \"Name\" attribute for one of the attachments described using the \"Attachment\" class.",
 						"type": "array",
 						"items": {
@@ -689,7 +689,7 @@
 							"$ref": "#/definitions/portType"
 						}
 					},
-					"Attachement": {
+					"Attachment": {
 						"description": "Identifiers for attachments related to this target. Each identifier listed here MUST match the \"Name\" attribute for one of the attachments described using the \"Attachment\" class.",
 						"type": "array",
 						"items": {
@@ -760,7 +760,7 @@
 						"description": "Free text human-readable additional note.",
 						"type": "string"
 					},
-					"Attachement": {
+					"Attachment": {
 						"description": "Identifiers for attachments related to this vector. Each identifier listed here MUST match the \"Name\" attribute for one of the attachments described using the \"Attachment\" class.",
 						"type": "array",
 						"items": {
@@ -862,8 +862,7 @@
 					},
 					"Reference": {
 						"description": "Name of the reference from where the observable is specified.",
-						"type": "string",
-						"format": "uri"
+						"type": "string"
 					},
 					"Content": {
 						"description": "Observable content",
